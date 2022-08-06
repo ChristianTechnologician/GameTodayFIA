@@ -1,8 +1,11 @@
 package Controller;
 
 import Model.Commento.CommentoDAO;
+import Model.GeneratoreFia.FillDatabase;
 import Model.Recensione.Recensione;
 import Model.Recensione.RecensioneDAO;
+import Model.Utente.Utente;
+import Model.Utente.UtenteDAO;
 import Model.Videogioco.Videogioco;
 import Model.Videogioco.VideogiocoDAO;
 
@@ -33,6 +36,26 @@ public class GeneralServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try{
+
+            ArrayList<Utente> utentes = new ArrayList<Utente>();
+            UtenteDAO utenteDAO = new UtenteDAO();
+            utentes = (ArrayList<Utente>) utenteDAO.doRetrieveAll();
+            boolean flag = true;
+            for(Utente ut : utentes){
+                if(ut.getNome().contains("nome")){
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag) {
+
+                //Modulo Fia
+                FillDatabase fillDatabase = new FillDatabase();
+                fillDatabase.main();
+                //
+
+            }
+
             List<Videogioco> videogiocoList = new ArrayList<>();
             Recensione recensioneCommentata = new Recensione();
             Recensione recensioneUltima = new Recensione();

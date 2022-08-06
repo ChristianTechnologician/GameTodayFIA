@@ -51,108 +51,120 @@
 
     <!-- The slideshow/carousel -->
     <div class="carousel-inner">
-    <%int i = 0;
+            <%int i = 0;
         for (Videogioco videogioco : videogiocoList ) {
             if (videogioco.getTitolo().contains(":")) {
                 String[] parts = videogioco.getTitolo().split(Pattern.quote(":"));
                     if(i==0){%>
+        <div class="carousel-item active">
+            <%}else{%>
+            <div class="carousel-item">
+                <%}%>
+                <form action="${pageContext.request.contextPath}/VideogiocoServlet" method="post">
+                    <button class="bottone" style="background-image: url('./img/<%=parts[0]+parts[1]%>/<%=parts[0]+parts[1]%>-1.jpg');"><input type="hidden" id="dettaglioVideogioco1" name="dettaglioVideogioco" value="<%=videogioco.getTitolo()%>"></button>
+                </form>
+                <!--<img src="./img/<%=parts[0]+parts[1]%>/<%=parts[0]+parts[1]%>-1.jpg" alt="Immagine non trovata" class="d-block" style="height: 500px; width:100%">-->
+                <div class="carousel-caption">
+                    <h3><%=videogioco.getTitolo()%></h3>
+                    <p>Casa produttrice : <%=videogioco.getCasaProduttrice()%></p>
+                </div>
+            </div>
+            <%}else{
+                if(i==0){%>
             <div class="carousel-item active">
                 <%}else{%>
                 <div class="carousel-item">
                     <%}%>
                     <form action="${pageContext.request.contextPath}/VideogiocoServlet" method="post">
-                        <button class="bottone" style="background-image: url('./img/<%=parts[0]+parts[1]%>/<%=parts[0]+parts[1]%>-1.jpg');"><input type="hidden" id="dettaglioVideogioco1" name="dettaglioVideogioco" value="<%=videogioco.getTitolo()%>"></button>
-                    </form>
-                    <!--<img src="./img/<%=parts[0]+parts[1]%>/<%=parts[0]+parts[1]%>-1.jpg" alt="Immagine non trovata" class="d-block" style="height: 500px; width:100%">-->
-            <div class="carousel-caption">
-                <h3><%=videogioco.getTitolo()%></h3>
-                <p>Casa produttrice : <%=videogioco.getCasaProduttrice()%></p>
-            </div>
-        </div>
-    <%}else{
-            if(i==0){%>
-            <div class="carousel-item active">
-                <%}else{%>
-                <div class="carousel-item">
+                        <%String id = "dettaglioVideogioco2";
+                            if(videogioco.getTitolo().contains("videogioco")){
+                                String game = "Logo";
+                        %>
+                        <button class="bottone" style="background-image: url('./img/<%=game%>/Grande.png');"><input type="hidden" id="<%=id%>" name="dettaglioVideogioco" value="<%=videogioco.getTitolo()%>"></button>
+                        <%}else{%>
+                        <button class="bottone" style="background-image: url('./img/<%=videogioco.getTitolo()%>/<%=videogioco.getTitolo()%>-1.jpg');"><input type="hidden" id="<%=id%>" name="dettaglioVideogioco" value="<%=videogioco.getTitolo()%>"></button>
                         <%}%>
-                    <form action="${pageContext.request.contextPath}/VideogiocoServlet" method="post">
-                         <button class="bottone" style="background-image: url('./img/<%=videogioco.getTitolo()%>/<%=videogioco.getTitolo()%>-1.jpg');"><input type="hidden" id="dettaglioVideogioco2" name="dettaglioVideogioco" value="<%=videogioco.getTitolo()%>"></button>
                     </form>
-            <!--<img src="./img/<%=videogioco.getTitolo()%>/<%=videogioco.getTitolo()%>-1.jpg" alt="Immagine non trovata" class="d-block" style="height: 500px; width:100%">-->
-            <div class="carousel-caption">
-                <h3><%=videogioco.getTitolo()%></h3>
-                <p>Casa produttrice : <%=videogioco.getCasaProduttrice()%></p>
+                    <!--<img src="./img/<%=videogioco.getTitolo()%>/<%=videogioco.getTitolo()%>-1.jpg" alt="Immagine non trovata" class="d-block" style="height: 500px; width:100%">-->
+                    <div class="carousel-caption">
+                        <h3><%=videogioco.getTitolo()%></h3>
+                        <p>Casa produttrice : <%=videogioco.getCasaProduttrice()%></p>
+                    </div>
+                </div>
+                <%}%>
+                <%i++;}%>
+                <!-- Left and right controls/icons -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
             </div>
         </div>
-    <%}%>
-<%i++;}%>
-    <!-- Left and right controls/icons -->
-    <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-    </button>
-    </div>
-</div>
-<br>
-<br>
-<div class="row" style="width: 100%;">
-    <div class="col-sm-4" style="text-align: center">
-        <h3>Recensione pi<span>&#250</span> commentata</h3>
-        <%if (recensioneCommentata.getTitolo().contains(":")) {
-        String[] parts = recensioneCommentata.getTitolo().split(Pattern.quote(":"));%>
-        <div class="container mt-3">
-            <img src="./img/<%=parts[0]+parts[1]%>/<%=parts[0]+parts[1]%>-1.jpg" class="img-fluid card" alt="Recensione più commentata">
-            <br>
-            <div><form action="${pageContext.request.contextPath}/RecensioneServlet" method="get"><button class="btn btn-link" style="border: 0px" id="recCommentata1" name="dettaglioRecensione" value="<%=recensioneCommentata.getTitolo()%>">Vai alla recensione</button></form></div>
-        </div>
-        <%}else{%>
-        <div class="container mt-3">
-            <img src="./img/<%=recensioneCommentata.getTitolo()%>/<%=recensioneCommentata.getTitolo()%>-1.jpg" class="img-fluid card" alt="Recensione più commentata">
-            <br>
-            <div><form action="${pageContext.request.contextPath}/RecensioneServlet" method="get"><button class="btn btn-link" style="border: 0px" id="recCommentata2" name="dettaglioRecensione" value="<%=recensioneCommentata.getTitolo()%>">Vai alla recensione</button></form></div>
-        </div>
-        <%}%>
-    </div>
-    <div class="col-sm-4" style="text-align: center">
-        <h3>Ultima recensione</h3>
-        <%if (recensioneUltima.getTitolo().contains(":")) {
-            String[] parts = recensioneUltima.getTitolo().split(Pattern.quote(":"));%>
-        <div class="container mt-3">
-            <img src="./img/<%=parts[0]+parts[1]%>/<%=parts[0]+parts[1]%>-1.jpg" class="img-fluid card" alt="Ultima recensione">
-            <br>
-            <div><form action="${pageContext.request.contextPath}/RecensioneServlet" method="get"><button class="btn btn-link" style="border: 0px" id="ultRecensione1" name="dettaglioRecensione" value="<%=recensioneUltima.getTitolo()%>">Vai alla recensione</button></form></div>
-        </div>
-        <%}else{%>
-        <div class="container mt-3">
-            <img src="./img/<%=recensioneUltima.getTitolo()%>/<%=recensioneUltima.getTitolo()%>-1.jpg" class="img-fluid card" alt="Ultima recensione">
-            <br>
-            <div><form action="${pageContext.request.contextPath}/RecensioneServlet" method="get"><button class="btn btn-link" style="border: 0px" id="ultRecensione2" name="dettaglioRecensione" value="<%=recensioneUltima.getTitolo()%>">Vai alla recensione</button></form></div>
-        </div>
-        <%}%>
-    </div>
-    <div class="col-sm-4" style="text-align: center">
-        <h3>Prima recensione del sito</h3>
-        <%if (recensionePrima.getTitolo().contains(":")) {
-            String[] parts = recensionePrima.getTitolo().split(Pattern.quote(":"));%>
-        <div class="container mt-3">
-            <img src="./img/<%=parts[0]+parts[1]%>/<%=parts[0]+parts[1]%>-1.jpg" class="img-fluid card" alt="Prima recensione">
-            <br>
-            <div><form action="${pageContext.request.contextPath}/RecensioneServlet" method="get"><button class="btn btn-link" style="border: 0px" id="primaRec1" name="dettaglioRecensione" value="<%=recensionePrima.getTitolo()%>">Vai alla recensione</button></form></div>
-        </div>
-        <%}else{%>
-        <div class="container mt-3">
-            <img src="./img/<%=recensionePrima.getTitolo()%>/<%=recensionePrima.getTitolo()%>-1.jpg" class="img-fluid card" alt="Prima Recensione">
-            <br>
-            <div><form action="${pageContext.request.contextPath}/RecensioneServlet" method="get"><button class="btn btn-link" style="border: 0px" id="primaRec2" name="dettaglioRecensione" value="<%=recensionePrima.getTitolo()%>">Vai alla recensione</button></form></div>
-        </div>
-        <%}%>
-    </div>
-</div>
+        <br>
+        <br>
 
-<footer>
-    <%@include file="footerCustomer.jsp"%>
-</footer>
+        <div class="row" style="width: 100%;">
+            <div class="col-sm-4" style="text-align: center">
+                <h3>Recensione pi<span>&#250</span> commentata</h3>
+                <%if (recensioneCommentata.getTitolo().contains(":")) {
+                    String[] parts = recensioneCommentata.getTitolo().split(Pattern.quote(":"));%>
+                <div class="container mt-3">
+                    <img src="./img/<%=parts[0]+parts[1]%>/<%=parts[0]+parts[1]%>-1.jpg" class="img-fluid card" alt="Recensione più commentata">
+                    <br>
+                    <div><form action="${pageContext.request.contextPath}/RecensioneServlet" method="get"><button class="btn btn-link" style="border: 0px" id="recCommentata1" name="dettaglioRecensione" value="<%=recensioneCommentata.getTitolo()%>">Vai alla recensione</button></form></div>
+                </div>
+                <%}else{%>
+                <div class="container mt-3">
+                    <img src="./img/<%=recensioneCommentata.getTitolo()%>/<%=recensioneCommentata.getTitolo()%>-1.jpg" class="img-fluid card" alt="Recensione più commentata">
+                    <br>
+                    <div><form action="${pageContext.request.contextPath}/RecensioneServlet" method="get"><button class="btn btn-link" style="border: 0px" id="recCommentata2" name="dettaglioRecensione" value="<%=recensioneCommentata.getTitolo()%>">Vai alla recensione</button></form></div>
+                </div>
+                <%}%>
+            </div>
+            <div class="col-sm-4" style="text-align: center">
+                <h3>Ultima recensione</h3>
+                <%if (recensioneUltima.getTitolo().contains(":")) {
+                    String[] parts = recensioneUltima.getTitolo().split(Pattern.quote(":"));%>
+                <div class="container mt-3">
+                    <img src="./img/<%=parts[0]+parts[1]%>/<%=parts[0]+parts[1]%>-1.jpg" class="img-fluid card" alt="Ultima recensione">
+                    <br>
+                    <div><form action="${pageContext.request.contextPath}/RecensioneServlet" method="get"><button class="btn btn-link" style="border: 0px" id="ultRecensione1" name="dettaglioRecensione" value="<%=recensioneUltima.getTitolo()%>">Vai alla recensione</button></form></div>
+                </div>
+                <%}else{%>
+                <div class="container mt-3">
+                    <%if(recensioneUltima.getTitolo().contains("videogioco")){%>
+                    <img src="./img/Logo/Grande.png" class="img-fluid card" alt="Ultima recensione">
+                    <%}else{%>
+                    <img src="./img/<%=recensioneUltima.getTitolo()%>/<%=recensioneUltima.getTitolo()%>-1.jpg" class="img-fluid card" alt="Ultima recensione">
+                    <%}%>
+                    <br>
+                    <div><form action="${pageContext.request.contextPath}/RecensioneServlet" method="get"><button class="btn btn-link" style="border: 0px" id="ultRecensione2" name="dettaglioRecensione" value="<%=recensioneUltima.getTitolo()%>">Vai alla recensione</button></form></div>
+                </div>
+                <%}%>
+            </div>
+            <div class="col-sm-4" style="text-align: center">
+                <h3>Prima recensione del sito</h3>
+                <%if (recensionePrima.getTitolo().contains(":")) {
+                    String[] parts = recensionePrima.getTitolo().split(Pattern.quote(":"));%>
+                <div class="container mt-3">
+                    <img src="./img/<%=parts[0]+parts[1]%>/<%=parts[0]+parts[1]%>-1.jpg" class="img-fluid card" alt="Prima recensione">
+                    <br>
+                    <div><form action="${pageContext.request.contextPath}/RecensioneServlet" method="get"><button class="btn btn-link" style="border: 0px" id="primaRec1" name="dettaglioRecensione" value="<%=recensionePrima.getTitolo()%>">Vai alla recensione</button></form></div>
+                </div>
+                <%}else{%>
+                <div class="container mt-3">
+                    <img src="./img/<%=recensionePrima.getTitolo()%>/<%=recensionePrima.getTitolo()%>-1.jpg" class="img-fluid card" alt="Prima Recensione">
+                    <br>
+                    <div><form action="${pageContext.request.contextPath}/RecensioneServlet" method="get"><button class="btn btn-link" style="border: 0px" id="primaRec2" name="dettaglioRecensione" value="<%=recensionePrima.getTitolo()%>">Vai alla recensione</button></form></div>
+                </div>
+                <%}%>
+            </div>
+        </div>
+
+        <footer>
+            <%@include file="footerCustomer.jsp"%>
+        </footer>
 </body>
 </html>
