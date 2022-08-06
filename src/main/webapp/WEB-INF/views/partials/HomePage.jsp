@@ -78,9 +78,9 @@
                     <form action="${pageContext.request.contextPath}/VideogiocoServlet" method="post">
                         <%String id = "dettaglioVideogioco2";
                             if(videogioco.getTitolo().contains("videogioco")){
-                                String game = "Logo";
+                                String game = "not";
                         %>
-                        <button class="bottone" style="background-image: url('./img/<%=game%>/Grande.png');"><input type="hidden" id="<%=id%>" name="dettaglioVideogioco" value="<%=videogioco.getTitolo()%>"></button>
+                        <button class="bottone" style="background-image: url('./img/genericaFIA/<%=game%>.png');"><input type="hidden" id="<%=id%>" name="dettaglioVideogioco" value="<%=videogioco.getTitolo()%>"></button>
                         <%}else{%>
                         <button class="bottone" style="background-image: url('./img/<%=videogioco.getTitolo()%>/<%=videogioco.getTitolo()%>-1.jpg');"><input type="hidden" id="<%=id%>" name="dettaglioVideogioco" value="<%=videogioco.getTitolo()%>"></button>
                         <%}%>
@@ -117,7 +117,11 @@
                 </div>
                 <%}else{%>
                 <div class="container mt-3">
+                    <%if(recensioneCommentata.getTitolo().contains("videogioco")){%>
+                    <img src="./img/genericaFIA/not.png" class="img-fluid card" alt="Ultima recensione">
+                    <%}else{%>
                     <img src="./img/<%=recensioneCommentata.getTitolo()%>/<%=recensioneCommentata.getTitolo()%>-1.jpg" class="img-fluid card" alt="Recensione più commentata">
+                    <%}%>
                     <br>
                     <div><form action="${pageContext.request.contextPath}/RecensioneServlet" method="get"><button class="btn btn-link" style="border: 0px" id="recCommentata2" name="dettaglioRecensione" value="<%=recensioneCommentata.getTitolo()%>">Vai alla recensione</button></form></div>
                 </div>
@@ -135,7 +139,7 @@
                 <%}else{%>
                 <div class="container mt-3">
                     <%if(recensioneUltima.getTitolo().contains("videogioco")){%>
-                    <img src="./img/Logo/Grande.png" class="img-fluid card" alt="Ultima recensione">
+                    <img src="./img/genericaFIA/not.png" class="img-fluid card" alt="Ultima recensione">
                     <%}else{%>
                     <img src="./img/<%=recensioneUltima.getTitolo()%>/<%=recensioneUltima.getTitolo()%>-1.jpg" class="img-fluid card" alt="Ultima recensione">
                     <%}%>
@@ -155,7 +159,11 @@
                 </div>
                 <%}else{%>
                 <div class="container mt-3">
+                    <%if(recensionePrima.getTitolo().contains("videogioco")){%>
+                    <img src="./img/genericaFIA/not.png" class="img-fluid card" alt="Ultima recensione">
+                    <%}else{%>
                     <img src="./img/<%=recensionePrima.getTitolo()%>/<%=recensionePrima.getTitolo()%>-1.jpg" class="img-fluid card" alt="Prima Recensione">
+                    <%}%>
                     <br>
                     <div><form action="${pageContext.request.contextPath}/RecensioneServlet" method="get"><button class="btn btn-link" style="border: 0px" id="primaRec2" name="dettaglioRecensione" value="<%=recensionePrima.getTitolo()%>">Vai alla recensione</button></form></div>
                 </div>

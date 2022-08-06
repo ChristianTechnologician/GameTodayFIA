@@ -90,7 +90,11 @@
             <%   }else{
     %>
     <div class="card shadow-sm mx-auto" style="width: 50%; height: 35%" >
+        <%if(recensione.getTitolo().contains("videogioco")){%>
+        <img class="img-responsive" src="./img/genericaFIA/not.png" class="img-fluid card" alt="immagineDivertente">
+        <%}else{%>
     <img class="img-responsive" src="./img/<%=recensione.getTitolo()%>/<%=recensione.getTitolo()%>-1.jpg" alt="immagineDivertente">
+    <%}%>
     </div>
     <%}%>
     <%}%>
@@ -127,13 +131,25 @@
            <%}else{
                     %>
             <div class="carousel-item active">
+                <%if(recensione.getTitolo().contains("videogioco")){%>
+                <img src="./img/genericaFIA/not.png" alt="Pic not found" class="d-block"  style="width:100%; height: 400%">
+                <%}else{%>
             <img src="./img/<%=recensione.getTitolo()%>/<%=recensione.getTitolo()%>-2.jpg" alt="Pic not found" class="d-block"  style="width:100%; height: 400%">
-        </div>
+            <%}%>
+            </div>
         <div class="carousel-item">
+            <%if(recensione.getTitolo().contains("videogioco")){%>
+            <img src="./img/genericaFIA/not.png" alt="Pic not found" class="d-block"  style="width:100%; height: 400%">
+            <%}else{%>
             <img src="./img/<%=recensione.getTitolo()%>/<%=recensione.getTitolo()%>-3.jpg" alt="Pic not found" class="d-block"  style="width:100%; height: 400%">
+            <%}%>
         </div>
         <div class="carousel-item">
+            <%if(recensione.getTitolo().contains("videogioco")){%>
+            <img src="./img/genericaFIA/not.png" alt="Pic not found" class="d-block"  style="width:100%; height: 400%">
+            <%}else{%>
             <img src="./img/<%=recensione.getTitolo()%>/<%=recensione.getTitolo()%>-4.jpg" alt="Pic not found" class="d-block"  style="width:100%; height: 400%">
+            <%}%>
         </div>
            <%}%>
         </div>

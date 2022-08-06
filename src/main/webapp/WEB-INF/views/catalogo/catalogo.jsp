@@ -54,7 +54,11 @@
                 %>
                 <div class="col" style="background-color: #141414">
                     <div class="card shadow-sm">
+                        <%if(generale.getTitolo().contains("videogioco")){%>
+                        <img src="./img/genericaFIA/not.png" class="bd-placeholder-img card-img-top" width="100%" height="225"  role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false" alt="immagineDivertente">
+                        <%}else{%>
                         <img src="./img/<%=generale.getTitolo()%>/<%=generale.getTitolo()%>-1.jpg" class="bd-placeholder-img card-img-top" width="100%" height="225"  role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                        <%}%>
                         <rect width="100%" height="100%" fill="#55595c"></rect>
                         </img>
                         <div class="card-body" style="background-color: turquoise">

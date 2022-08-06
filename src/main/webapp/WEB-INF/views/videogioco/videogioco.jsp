@@ -130,7 +130,11 @@
 <%   }else{
 %>
         <div class="card shadow-sm">
+            <%if(videogioco.getTitolo().contains("videogioco")){%>
+            <img src="./img/genericaFIA/not.png" class="img-responsive" alt="immagineDivertente">
+            <%}else{%>
             <img class="img-responsive" src="./img/<%=videogioco.getTitolo()%>/<%=videogioco.getTitolo()%>-1.jpg" alt="immagineDivertente">
+            <%}%>
         </div>
             <%}%>
 <%}%>
