@@ -26,8 +26,9 @@ public class FillDatabase {
 
     private static void generateUtente() {
         try (Connection con = ConPool.getConnection()) {
+            String[] tipologia = {"Horror", "Dark Fantasy", "Fantascienza", "Avventura", "Action RPG", "Open World", "Azione"};
             for (int i = 2; i < size; i++) {
-                PreparedStatement ps = con.prepareStatement("INSERT INTO utente(UtNickname, UtNome, UtCognome, ValEffettuate, UtEmail, UtPW, UtLike, UtDislike, UtAvatar) VALUES (?,?,?,?,?,?,?,?,?);");
+                PreparedStatement ps = con.prepareStatement("INSERT INTO utente(UtNickname, UtNome, UtCognome, ValEffettuate, UtEmail, UtPW, UtLike, UtDislike, UtAvatar, UtTipologia) VALUES (?,?,?,?,?,?,?,?,?,?);");
                 ps.setString(1, "nickname" + i);
                 ps.setString(2, "nome" + i);
                 ps.setString(3, "cognome" + i);
@@ -37,6 +38,7 @@ public class FillDatabase {
                 ps.setInt(7, i);
                 ps.setInt(8, i);
                 ps.setInt(9, random.nextInt(19)+1);
+                ps.setString(10, tipologia[random.nextInt(7)]);
                 if (ps.executeUpdate() != 1) {
                     throw new RuntimeException("INSERT error.");
                 }

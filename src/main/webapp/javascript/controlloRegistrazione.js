@@ -86,6 +86,13 @@ function validateForm(form)
         return false;
     }
 
+    let UtTipologia = $("#UtTipologia").val();
+    if(UtTipologia==""){
+        document.getElementById("tipologiasbagliato").style.display = "block";
+        document.getElementById("tbrsbagliato").style.display = "block";
+        return false;
+    }
+
     let UtPW = $("#UtPW").val();
     if(UtPW.length<8){
         document.getElementById("pw").style.display = "block";

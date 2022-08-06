@@ -28,6 +28,7 @@ public class UtenteExtraction {
         utente.setLike(rs.getInt(7));
         utente.setDislike(rs.getInt(8));
         utente.setAvatar(rs.getInt(9));
+        utente.setUtTipologia(rs.getString(10));
         return utente;
     }
 }

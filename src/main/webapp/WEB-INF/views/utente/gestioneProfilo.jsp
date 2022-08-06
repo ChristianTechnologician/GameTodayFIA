@@ -37,6 +37,7 @@
             <th>Like totali</th>
             <th>Dislike totali</th>
             <th>Avatar</th>
+            <th>Tipologia</th>
         </tr>
         </thead>
         <tbody>
@@ -49,6 +50,7 @@
             <td data-head="Password"><%=utenteLoggato.getLike()%></td>
             <td data-head="Videogiochi inserti"><%=utenteLoggato.getDislike()%></td>
             <td data-head="Avatar"><%=utenteLoggato.getAvatar()%></td>
+            <td data-head="Tipologia"><%=utenteLoggato.getUtTipologia()%></td>
         </tr>
         </tbody>
     </table>

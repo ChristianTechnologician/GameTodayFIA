@@ -43,7 +43,6 @@ public class UtenteProfileServlet extends Controllo {
                     dispatcher2.forward(request, response);
                     break;
                 case "registrazione" :
-                    System.out.println("quiquqiqu");
                     RequestDispatcher dispatcher5 = request.getRequestDispatcher("/WEB-INF/views/partials/registrazione.jsp");
                     dispatcher5.forward(request, response);
                     break;
@@ -101,6 +100,7 @@ public class UtenteProfileServlet extends Controllo {
                     utente.setValEffettuate(utenteSessione.getValEffettuate());
                     utente.setLike(utenteSessione.getLike());
                     utente.setDislike(utenteSessione.getDislike());
+                    utente.setUtTipologia(request.getParameter("UtTipologia"));
                     utenteDAO.updateUtente(utente, utenteSessione.getUtNickname());
                     Utente utente1 = new Utente();
                     utente1 = utenteDAO.doRetrieveUtenteByEmail(utente.getEmail());
@@ -113,6 +113,7 @@ public class UtenteProfileServlet extends Controllo {
                     utenteRegistrazione.setNome(request.getParameter("UtNome"));
                     utenteRegistrazione.setCognome(request.getParameter("UtCognome"));
                     utenteRegistrazione.setAvatar(Integer.parseInt(request.getParameter("UtAvatar")));
+                    utenteRegistrazione.setUtTipologia(request.getParameter("UtTipologia"));
                     utenteRegistrazione.setEmail(request.getParameter("UtEmail"));
                     utenteRegistrazione.setPassword(request.getParameter("UtPW"));
                     utenteRegistrazione.setValEffettuate(0);

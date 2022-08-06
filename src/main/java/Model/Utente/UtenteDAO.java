@@ -49,7 +49,7 @@ public class UtenteDAO
     public Boolean createUtente(Utente utente) throws SQLException
     {
         try(Connection connection = ConPool.getConnection()){
-            try(PreparedStatement ps = connection.prepareStatement("INSERT INTO utente(UtNickname, UtNome, UtCognome, ValEffettuate, UtEmail, UtPW, UtLike, UtDislike, UtAvatar) VALUES (?,?,?,?,?,?,?,?,?);")){
+            try(PreparedStatement ps = connection.prepareStatement("INSERT INTO utente(UtNickname, UtNome, UtCognome, ValEffettuate, UtEmail, UtPW, UtLike, UtDislike, UtAvatar, UtTipologia) VALUES (?,?,?,?,?,?,?,?,?,?);")){
                 ps.setString(1,utente.getUtNickname());
                 ps.setString(2, utente.getNome());
                 ps.setString(3, utente.getCognome());
@@ -59,6 +59,7 @@ public class UtenteDAO
                 ps.setInt(7, utente.getLike());
                 ps.setInt(8, utente.getDislike());
                 ps.setInt(9, utente.getAvatar());
+                ps.setString(10, utente.getUtTipologia());
                 int rows = ps.executeUpdate();
                 return rows == 1;
             }
@@ -77,7 +78,7 @@ public class UtenteDAO
     public Boolean updateUtente(Utente utente, String utNickname) throws SQLException
     {
         try(Connection connection = ConPool.getConnection()){
-            try(PreparedStatement ps = connection.prepareStatement("UPDATE Utente SET UtNickname=?, UtNome=?, UtCognome=?, ValEffettuate=?, UtEmail=?, UtPW=?, UtLike=?, UtDislike=?, UtAvatar=? WHERE UtNickname = ?")){
+            try(PreparedStatement ps = connection.prepareStatement("UPDATE Utente SET UtNickname=?, UtNome=?, UtCognome=?, ValEffettuate=?, UtEmail=?, UtPW=?, UtLike=?, UtDislike=?, UtAvatar=?, UtTipologia=? WHERE UtNickname = ?")){
                 ps.setString(1,utente.getUtNickname());
                 ps.setString(2, utente.getNome());
                 ps.setString(3, utente.getCognome());
@@ -87,7 +88,8 @@ public class UtenteDAO
                 ps.setInt(7, utente.getLike());
                 ps.setInt(8, utente.getDislike());
                 ps.setInt(9, utente.getAvatar());
-                ps.setString(10, utNickname);
+                ps.setString(10, utente.getUtTipologia());
+                ps.setString(11, utNickname);
                 int rows = ps.executeUpdate();
                 return rows == 1;
             }

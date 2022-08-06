@@ -16,6 +16,7 @@ public class UtenteNull extends UtenteAbstract{
     private int valEffettuate;
     private int like;
     private int dislike;
+    private String utTipologia;
 
     /**
      * questo metodo restituisce il nickname dell'utente
@@ -182,10 +183,26 @@ public class UtenteNull extends UtenteAbstract{
     }
 
     /**
+     * questo metodo restituisce il genere preferito dall'utente
+     * @return utTipologia
+     */
+
+    public String getUtTipologia() { return utTipologia; }
+
+    /**
+     * questo metodo imposta il genere preferito dell'utente
+     * @param utTipologia
+     */
+
+    public void setUtTipologia(String utTipologia) { this.utTipologia = utTipologia; }
+
+    /**
      * questo metodo verifica se l'autore è nullo
      * questo metodo è utilizzato nel pattern NullObject
      * @return true
      */
+
+
 
     @Override
     public boolean isNull() { return true; }

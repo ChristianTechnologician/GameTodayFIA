@@ -74,6 +74,13 @@
         </div>
 
         <div class="form-floating mb-3 mt-3">
+            <input style="background-color: #141414; color:white" class="form-control" type="text" id="UtTipologia" name="UtTipologia" placeholder="Tipologia">
+            <label for="UtTipologia">Tipologia</label>
+
+            <div id="tipologiasbagliato" class="errorename" style="display: none;">Valore tipologia non inserito</div><br id="tbrsbagliato" style="display: none;">
+        </div>
+
+        <div class="form-floating mb-3 mt-3">
             <input style="background-color: #141414; color:white" class="form-control" type="text" id="UtEmail" name="UtEmail" placeholder="Email">
             <label for="UtEmail">Email</label>
 
