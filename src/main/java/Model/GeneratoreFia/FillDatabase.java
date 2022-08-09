@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * classe FillDatabase, genera utenti, videogiochi e recensioni randomicamente
+ */
 
 public class FillDatabase {
 
@@ -17,12 +20,20 @@ public class FillDatabase {
     private static int size = 1000;
     private static List<String> titoli = new ArrayList<String>();
 
+    /**
+     * questo è il metodo principale, il quale richiama gli altri metodi
+     */
+
     public static void main() {
         generateUtente();
         generateVideogioco();
         findVideogioco();
         generateRecensione();
     }
+
+    /**
+     * questo metodo genera gli utenti randomicamente
+     */
 
     private static void generateUtente() {
         try (Connection con = ConPool.getConnection()) {
@@ -47,6 +58,10 @@ public class FillDatabase {
             throw new RuntimeException(ex);
         }
     }
+
+    /**
+     * questo metodo genera i videogiochi randomicamente
+     */
 
     private static void generateVideogioco() {
         Integer[] pegi = {3, 7, 12, 16, 18};
@@ -80,6 +95,10 @@ public class FillDatabase {
         }
     }
 
+    /**
+     * questo metodo recupera i videogiochi utilizzati per generare randomicamente le recensioni
+     */
+
     private static void findVideogioco() {
         int w = 0;
         try (Connection con = ConPool.getConnection()) {
@@ -103,6 +122,10 @@ public class FillDatabase {
             throw new RuntimeException(ex);
         }
     }
+
+    /**
+     * questo metodo genera randomicamente le recensioni
+     */
 
     private static void generateRecensione() {
         int z = 0;

@@ -4,6 +4,10 @@ import Model.Videogioco.Videogioco;
 
 import java.util.Comparator;
 
+/**
+ * classe che effettua la comparazione decrescente dei videogiochi
+ */
+
 public class Decrescente implements Comparator<Videogioco> {
     @Override
     public int compare(Videogioco e1, Videogioco e2) {

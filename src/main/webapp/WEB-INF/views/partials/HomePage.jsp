@@ -1,6 +1,5 @@
 <%@ page import="Model.Videogioco.Videogioco" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="Model.Recensione.Recensione" %>
 <%@ page import="java.util.regex.Pattern" %>
 <!DOCTYPE html>
@@ -34,6 +33,7 @@
     Recensione recensioneCommentata = (Recensione) request.getAttribute("recensioneCommentata");
     Recensione recensioneUltima = (Recensione) request.getAttribute("recensioneUltima");
     Recensione recensionePrima = (Recensione) request.getAttribute("recensionePrima");
+    Utente utLoggato = (Utente) request.getSession(false).getAttribute("userUt");
 %>
 
 <header>

@@ -120,7 +120,7 @@ public class VideogiocoDAO {
      * metodo che interroga il database per restituire una lista di videogiochi con piattaforma corrispondente alla
      * stringa passata come parametro
      * @param piattaforma
-     * @return
+     * @return Lista di videogiochi
      * @throws SQLException
      */
 

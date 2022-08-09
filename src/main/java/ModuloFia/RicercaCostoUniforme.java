@@ -4,7 +4,18 @@ import Model.Videogioco.Videogioco;
 
 import java.util.ArrayList;
 
+/**
+ * classe che implementa l'algoritmo di ricerca a costo uniforme
+ */
+
 public class RicercaCostoUniforme {
+
+    /**
+     * metodo che effettua la ricerca tramite l'algoritmo "ricerca costo uniforme"
+     * @param catalogo
+     * @param genere
+     * @return ArrayList<Videogioco>
+     */
 
     public ArrayList<Videogioco> ricerca(ArrayList<Videogioco> catalogo, String genere){
         ArrayList<Videogioco> lista= new ArrayList<>();

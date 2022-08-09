@@ -46,6 +46,12 @@
                 </a>
                 <ul class="dropdown-menu">
                     <form action="${pageContext.request.contextPath}/utenteProfile/" method="get">
+
+                        <!--ModuloFIA-->
+                        <li><button class="dropdown-item" id="ricercaUniforme" name="gestioneUtente" value="ricercaUniforme">Videogiochi consigliati ricerca uniforme</button></li>
+                        <li><button class="dropdown-item" id="ricercaLineare" name="gestioneUtente" value="ricercaLineare">Videogiochi consigliati ricerca lineare</button></li>
+                        <!--ModuloFIA-->
+
                         <li><button class="dropdown-item" id="gestioneProfiloUtente" name="gestioneUtente" value="gestioneProfiloUtente">Gestione Profilo</button></li>
                         <li><button class="dropdown-item" id="logoutUtente" name="gestioneUtente" value="logoutUtente">Logout</button></li>
                     </form>

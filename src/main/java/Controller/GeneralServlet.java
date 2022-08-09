@@ -8,6 +8,7 @@ import Model.Utente.Utente;
 import Model.Utente.UtenteDAO;
 import Model.Videogioco.Videogioco;
 import Model.Videogioco.VideogiocoDAO;
+import ModuloFia.RicercaCostoUniforme;
 
 import java.io.*;
 import java.sql.SQLException;

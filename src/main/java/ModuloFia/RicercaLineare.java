@@ -4,9 +4,19 @@ import Model.Videogioco.Videogioco;
 
 import java.util.ArrayList;
 
+/**
+ * classe che implementa l'algoritmo di ricerca lineare
+ */
 public class RicercaLineare {
 
-    public ArrayList<Videogioco> search(ArrayList<Videogioco> catalogo, String genere){
+    /**
+     * metodo che effettua la ricerca tramite l'algoritmo "ricerca lineare"
+     * @param catalogo
+     * @param genere
+     * @return ArrayList<Videogioco>
+     */
+
+    public ArrayList<Videogioco> ricerca(ArrayList<Videogioco> catalogo, String genere){
         ArrayList<Videogioco> lista= new ArrayList<>();
         if (catalogo.isEmpty())
             return lista;
