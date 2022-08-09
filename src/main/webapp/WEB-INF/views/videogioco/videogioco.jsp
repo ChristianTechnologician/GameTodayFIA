@@ -149,22 +149,22 @@
         <p>Piattaforma: <%=videogioco.getPiattaforma()%></p>
         <p>Data Pubblicazione: <%=videogioco.getDataPubblicazione()%></p>
         <p><h5 class="review-count"><%=videogioco.getTotaleVoti()%> valutazioni</h5>
-        <%if(videogioco.getMediaValutazioni()<=5 && videogioco.getMediaValutazioni()>4){%>
+        <%if(videogioco.getMediaValutazioni()==5){%>
             <p><div class="ratings"> <i class="fa fa-star rating-color"></i> <i class="fa fa-star rating-color"></i> <i class="fa fa-star rating-color"></i> <i class="fa fa-star rating-color"></i> <i class="fa fa-star rating-color"></i></div></div></p>
         <%}%>
-        <%if(videogioco.getMediaValutazioni()<=4 && videogioco.getMediaValutazioni()>3){%>
+        <%if(videogioco.getMediaValutazioni()>=4 && videogioco.getMediaValutazioni()<5){%>
             <p><div class="ratings"> <i class="fa fa-star rating-color"></i> <i class="fa fa-star rating-color"></i> <i class="fa fa-star rating-color"></i> <i class="fa fa-star rating-color"></i> <i class="fa fa-star"></i></div></div></p>
         <%}%>
-        <%if(videogioco.getMediaValutazioni()<=3 && videogioco.getMediaValutazioni()>2){%>
+        <%if(videogioco.getMediaValutazioni()>=3 && videogioco.getMediaValutazioni()<4){%>
             <p><div class="ratings"> <i class="fa fa-star rating-color"></i> <i class="fa fa-star rating-color"></i> <i class="fa fa-star rating-color"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div></div></p>
         <%}%>
-        <%if(videogioco.getMediaValutazioni()<=2 && videogioco.getMediaValutazioni()>1){%>
+        <%if(videogioco.getMediaValutazioni()>=2 && videogioco.getMediaValutazioni()<3){%>
             <p><div class="ratings"> <i class="fa fa-star rating-color"></i> <i class="fa fa-star rating-color"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div></div></p>
         <%}%>
-        <%if(videogioco.getMediaValutazioni()<=1 && videogioco.getMediaValutazioni()>0){%>
+        <%if(videogioco.getMediaValutazioni()>=1 && videogioco.getMediaValutazioni()<2){%>
             <p><div class="ratings"> <i class="fa fa-star rating-color"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div></div></p>
         <%}%>
-        <%if(videogioco.getMediaValutazioni()==0){%>
+        <%if(videogioco.getMediaValutazioni()>=0 && videogioco.getMediaValutazioni()<1){%>
             <p><div class="ratings"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div></div></p>
         <%}%>
     </ul>
