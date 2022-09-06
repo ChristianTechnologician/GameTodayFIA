@@ -1,0 +1,259 @@
+drop database if exists gametoday;
+create database gametoday;
+use gametoday;
+
+create table autore(
+AuNickname Varchar(30),
+AuNome Varchar(20),
+AuCognome Varchar(20),
+AuAvatar int,
+REffettuate int,
+RCommissionate Varchar(100),
+AuEmail Varchar(20),
+Scadenza date,
+AuPW Varchar(30),
+AuLike int,
+AuDislike int,
+primary key(AuNickname)
+);
+
+create table utente( 
+UtNickname Varchar(30),
+UtNome Varchar(20),
+UtCognome	Varchar(20),
+ValEffettuate int,
+UtEmail Varchar(30),
+UtPW Varchar(30),
+UtLike Int,
+UtDislike Int,
+UtAvatar int,
+UtTipologia Varchar(30),
+primary key(UtNickname)
+);
+
+create table amministratore(
+AmNickname Varchar(30),
+AmNome Varchar(20),
+AmCognome Varchar(20),
+AmAvatar int,
+AmEmail Varchar(30),
+AmPW Varchar(30),
+VideogiochiInseriti int,
+primary key(AmNickname)
+);
+
+create table videogioco( 
+Titolo Varchar(50),
+Pegi Int,
+TotaleVoti Int,
+CasaProduttrice Varchar(50),
+MediaValutazioni Double,
+Piattaforma	Varchar(20),
+DataPubblicazione Date,
+Tipologia Varchar(20),
+primary key(Titolo)
+);
+
+create table recensione( 
+Codice Varchar(30),
+AuNickname Varchar(30),
+RData Date,
+RTesto Varchar(3500),
+AuNome Varchar(30),
+Titolo Varchar(50),
+foreign key (Titolo) references videogioco(Titolo)
+on update cascade
+on delete cascade,
+primary key(Codice)
+);
+
+create table commento(   
+CommentoCod Varchar(30),
+Codice Varchar(30),
+CLike Int,
+CDislike Int,  
+CTesto Varchar(1500),
+primary key(CommentoCod)
+);
+
+create table interazioneAutore(
+CommentoCod  Varchar(30),
+AuNickname Varchar(30),
+AUL boolean,
+AUD boolean,
+primary key(CommentoCod, AuNickname)
+);
+
+create table interazioneUtente(
+CommentoCod  Varchar(30),
+UtNickname Varchar(30),
+UTL boolean,
+UTD boolean,
+primary key(CommentoCod, UtNickname)
+);
+
+create table verifica(
+CommentoCod  Varchar(30),
+AmNickname Varchar(30),
+primary key(CommentoCod, AmNickname)
+);
+
+create table visione(
+AuNickname Varchar(30),
+Titolo  Varchar(50),
+primary key(AuNickname, Titolo)
+);
+
+create table valutazione(
+UtNickname Varchar(30),
+Titolo  Varchar(50),
+primary key(UtNickname, Titolo)
+);
+
+create table gestione(
+AmNickname Varchar(30),
+Titolo  Varchar(50),
+primary key(AmNickname, Titolo)
+);
+
+create table supervisione(
+AmNickname Varchar(30),
+Codice  Varchar(50),
+primary key(AmNickname, Codice)
+);
+
+
+insert into autore values
+("IGN_Italia","Fabio","Marcolini",20,2,"","autore1@yahoo.it","2023-05-12","IGNn_141DA*3",2,3),
+("CoPlaNet","Ezio","Macchina",14,3,"","autore2@gmail.com","2024-02-12","Coplan&3t1999",4,1);
+
+
+insert into utente values
+("Shadow_1995", "Emiliano", "Rossi",6, "emi1995@gmail.com","BigShadow1995*",15,30,18,"Horror"),
+("Hope", "Erika", "Schiavone",7, "EriSki@gmail.com","Speranz@24",1,1,17,"Dark Fantasy"),
+("Hinata99", "Rosina", "Foscari",2, "Rosy1999@gmail.com","RosFosco99*",7,14,12,"Fantascienza"),
+("MarieCurie", "Giada", "Faggiani",14,"GiaFa23@gmail.com","Beautiful1990*",6,12,11,"Avventura"),
+("Ellie_Williams", "Ellie", "Williams",1, "TLOU2@gmail.com","Firefly1!*",9,50,1,"Action RPG"),
+("Joel_Miller", "Joel", "Miller",2, "NotTommy@gmail.com","Coffee1980*",15,14,2,"Open World"),
+("Salasar", "Aldo", "Poretti",6, "Salasar96@gmail.com","ConteDracula7*",5,1,13,"Azione"),
+("Thor", "Giovanni", "Baglio",9,"Aldone99@gmail.com","PdorDi1star*",8,8,19,"Open World"),
+("Kratos1980", "Giacomo", "Storti",11, "Giacomino1960@gmail.com","Garpez30000*",30,6,3,"Azione"),
+("Van_Hoenheim", "Ferdinando ","D'Anchera",10,"Ferdy1998@gmail.com","poveroGabb1ano*",24,2,15,"Action RPG");
+
+
+
+insert into amministratore values
+("V-Admin", "Valentina","Annunziata",4,"Vadmin1@gmail.com","VAAdmin1!",5),
+("F-Admin", "Fabio","Caruso",16,"Fadmin1@gmail.com","FCAdmin2!",4),
+("C-Admin", "Christian","Capone",8,"CCAdmin1@gmail.com","CCAdmin3!",16),
+("D-Admin", "Davide","Coticelli",9,"Dadmin1@gmail.com","DCAdmin4!",9);
+
+
+insert into videogioco values
+("The Last of Us Parte II", 18, 3900, "Naughty Dog",5,"PlayStation 4","2020-06-20","Horror"),
+("Bloodborne",16,2542,"FromSoftware",4.5,"PlayStation 4","2015-03-27","Dark Fantasy"),
+("Detroit Became Human",16,2119,"Quantic Dream",4.4,"PlayStation 4","2018-05-28","Fantascienza"),
+("Heavy Rain",18,1981,"Quantic Dream",4.2,"PC","2010-02-18","Avventura"),
+("Sekiro: Shadows Die Twice",18,1721,"FromSoftware",4.3,"PC","2019-03-22","Avventura"),
+("Kingdom Hearts III",12,2029,"Square Enix",4.1,"Xbox One","2019-01-25","Action RPG"),
+("Horizon Zero Dawn",16,2523,"Guerrilla Games",4.4,"PlayStation 4","2017-03-02","Open World"),
+("Dragon Ball Z: Kakarot",12,2620,"CyberConnect2",3.4,"Xbox One","2020-01-16","Azione"),
+("God of War IV",18,3102,"SIE Santa Monica Studio",5,"PC","2018-04-20","Open World"),
+("A Plague Tale: Innocence",18,2012,"Asobo Studio",4.2,"Xbox One","2019-05-14","Avventura");
+
+
+insert into recensione values
+("192GZvGC","IGN_Italia","2020-06-20","In The Last of Us, Joel aveva il compito di scortare Ellie attraverso gli Stati Uniti in un mondo post-apocalittico per raggiungere la sede delle Luci nella Massachusetts State House, fuori dalla zona di quarantena. Durante il viaggio, si scopre che Ellie è immune all'infezione che ha distrutto l’umanità e che le Luci intendono sfruttarne l’immunità per sviluppare un vaccino. Arrivati sul posto, Joel ed Ellie scoprono che il gruppo è stato attaccato, per cui si recano nella Contea di Jackson, nel Wyoming, a chiedere aiuto al fratello di Joel, Tommy, che è un ex membro. In seguito, scoprono che le Luci si sono barricate nell'ospedale di Saint Mary a Salt Lake City, nello Utah. La coppia raggiunge finalmente la milizia, ma è qui che avviene il “disastro”. Marlene, capo delle Luci, svela a Joel che Ellie sarà sottoposta a un intervento chirurgico al fine di estrarre il Cordyceps mutato e preparare un vaccino. Purtroppo, l’intervento sarebbe costato la vita della ragazza. Joel non potendo accettare la morte di Ellie, che ormai considera come una figlia, uccide i membri delle Luci e scappa via con lei. La coppia ritorna a Jackson, durante il tragitto Joel mente a Ellie, dicendole che le Luci avevano trovato altre persone immuni e che quindi era libera di andare. In The Last of Us 2, sono trascorsi quattro anni ed Ellie e Joel vivono assieme a Tommy, in un insediamento nella Contea di Jackson, dove hanno costruito una piccola cittadina per proteggersi dagli infetti. Il rapporto tra Ellie e Joel è diventato teso, poiché la ragazza nutre dei dubbi su ciò che è realmente accaduto con le Luci. Inoltre, Joel fa fatica ad accettare la crescita di Ellie, ormai donna. Dopo un breve prologo, scopriamo subito quanto sia cambiato la relazione tra i due, inoltre Naughty Dog sfrutta il legame che i gamer hanno sviluppato con i due protagonisti, per offrire una trama a dir poco sconvolgente. Dopo una serie di eventi strazianti, Ellie lascia Jackson in cerca di vendetta; è diretta a Seattle, alla ricerca dei membri di un nuovo gruppo militare che ha preso il posto delle Luci: il Washington Liberation Front (in breve WLF o Lupi). Non parleremo più della trama, non vogliamo anticiparvi nulla, inoltre sperimentare in prima persona questo titolo è ben più appagante.","Fabio","The Last of Us Parte II"),
+("W98Ckx8A","CoPlaNet","2015-03-27","Che la notte più buia venga illuminata da un concentrato di oscurità quasi tangibile come Bloodborne è a dir poco ironico. La generazione attuale ha sinceramente deluso per ora, con esclusive di livello nettamente inferiore alle aspettative, remaster tappabuchi annunciati quasi ad ogni passaggio di settimana, e multipiattaforma degni sì, ma incapaci di avanzare sensibilmente il media. Con queste premesse non sorprende che il pargolo di From Software sia atteso come una sorta di salvatore della patria dalla stragrande maggioranza dei possessori di PS4. Alla base tutti si aspettavano un altro Souls con qualche variante e grafica pompata, dopotutto, e questa consapevolezza era più che sufficiente per esser sicuri di poter finalmente inserire il disco di un gran gioco nel proprio monolito nuovo di pacca.  Pensare che Bloodborne sia soltanto un altro esponente della serie Souls è però un grave errore e preferiamo dirvelo immediatamente. Miyazaki e i suoi stavolta hanno creato un gioco ben diverso da quelli che l’hanno preceduto, e che pur condividendo con i suoi “fratelli” moltissime basi rappresenta una mutazione a dir poco contorta della struttura che tanti giocatori hanno imparato ad amare. Approcciarlo aspettandosi la stessa esperienza potrebbe essere doloroso. Il videogame che oggi vi descriviamo è sempre brutale, convoluto, complesso e ferocemente affascinante, ma soprattutto è un viaggio senza ritorno nella imprevedibile mente di Miyazaki e dei suoi sottoposti, ed è il titolo che rende la nuova Playstation degna di essere acquistata.  Da subito si coglie che qualcosa non quadra in Bloodborne. Si inizia nella clinica di Iosefka, sdraiati su un lettino ricoperto di sangue e in procinto di ricevere una trasfusione. Il motivo della nostra presenza al cospetto dello strano vecchio che ci promette il potere del sangue non è chiaro, così come non lo sono i nostri obiettivi, ma i From sono soliti lasciare il giocatore nel dubbio, quindi non è certo questo ad essere inusuale. No, a stupire è il numero risicato di statistiche visibili nella creazione del personaggio, ben inferiore rispetto al passato. Alla base questa nuova avventura è infatti sempre un action-gdr di sorta, con uno sviluppo approfondito del personaggio e svariate possibilità, ma la crescita del proprio alter ego è più contenuta a livello di attributi, più concreta e diretta. La scelta si fa evidente appena si inizia: costretti a combattere a mani nude contro un lupo mannaro molto aggressivo, si viene di norma uccisi per esser subito catapultati nel sogno del cacciatore, un luogo misterioso ove si può tornare dopo ogni morte e che rappresenta una sorta di hub per il giocatore. Da lì si viene subito in possesso di un’arma e di un utile taccuino per lasciare messaggi, dopodiché arriva il momento di mettere piede nelle strade di Yharnam, una città dall’aspetto inquietante e magnifico in preda a una follia collettiva scatenata dal sangue infetto, durante “la caccia”. Le differenze dai Souls sono marcate e partono dall’assenza di peso variabile, che porta la velocità del cacciatore da noi controllato ad essere influenzata esclusivamente dalla scelta dell’arma, per poi continuare nell’apparente mancanza di magia classica e di una fiaschetta rigenerante fissa, sostituite all’inizio da utili oggetti e da fiale di sangue che cadono con frequenza dai corpi degli agguerriti nemici. ","Ezio","Bloodborne"),
+("fkFfBIlQ","IGN_Italia","2018-05-28","Nella Detroit del 2038 sembra che il sole sia sempre nascosto dalle nubi, anche quando brilla in cielo. Un manto amaro pare imprigionare la città e i suoi abitanti. Nessuno è davvero felice: è un futuro prossimo, tutt'altro che gioioso, quello dipinto da Quantic Dream in Detroit: Become Human, la nuova avventura del team che ci ha portato Fahrenheit, Heavy Rain e Beyond: Due Anime. Un nuovo modo di narrare storie che negli ultimi anni ha avuto un grande successo, basti pensare alle varie stagioni dei giochi Telltale o a Life is Strange. Amate, odiate, chi urla che non sono veri videogiochi, chi le chiama “film interattivi”... per quanto mi riguarda, videogiochi lo sono eccome, semplicemente si focalizzano sulla narrazione, chiedendo al giocatore di raccontarla con le sue scelte, facendo compiere piccoli gesti di interazione misti ad alcuni momenti che ne testano i riflessi. Un sotto-genere che si è evoluto fino a giungere a Detroit: Become Human, l'ultimo figlio di David Cage e soci, che annulla completamente il concetto di game over e offre un mondo e una storia che proseguono anche dopo che uno dei suoi protagonisti è morto.  Detroit racconta di un futuro prossimo in cui la Cyberlife, una sorta di Apple o Google avveneristica, domina il mercato della tecnologia con i suoi androidi, acquistabili e personalizzabili neanche fossero elettrodomestici... e programmati per eseguire qualsiasi tipo di mansione. Dal cucinare al badare ai figli, passando per il semplice compiacimento sessuale. Più funzioni si vogliono più il prezzo sale, semplice. Non tutti vedono di buon occhio questi robot: per alcuni sono un affronto alla natura e a Dio stesso, ma è anche vero che per tanti altri sono semplicemente il futuro (anzi, il presente). Mentre il mondo intero dibatte d'etica, qualcosa improvvisamente inizia ad andare storto: una serie di omicidi misteriosi a opera di androidi. Malfunzionamenti che spingono gli esseri artificiali a uscire dai binari programmati per loro, finendo spesso col commettere atti terribili e darsi alla fuga, magari riempiendo i luoghi degli omicidi con dei graffiti che lodano “aR9”. La stessa Cyberlife chiama questo malfunzionamento Devianza e utilizza androidi programmati appositamente ad aiutare le forze dell'ordine a catturare i Devianti. Queste sono le premesse del gioco, approfondirle significherebbe svelarvi troppo sulla trama di Detroit, quindi meglio limitarsi all'introduzione dei personaggi principali.","Fabio","Detroit Became Human"),
+("nFxjvZ94","CoPlaNet","2010-02-18","È quasi strano, dopo essere passati da Beyond: Due Anime, tornare a riaffacciarsi sui piovosi vicoli di Heavy Rain. Andando a ritroso nel tempo, infatti, si abbandonano le atmosfere mistiche e a tratti poetiche delle vicende vissute da Jodie Holmes e Aiden e per imbrattarsi invece le scarpe fino alle caviglie nella fredda pioggia battente che copre gli omicidi del killer degli origami. Si respira a pieni polmoni quell'umidità gelata e soffocante dell'acqua che cade incessante su ogni cosa e che uccide. Perché è proprio questo il fulcro della storia di Heavy Rain: un'orchidea sul petto e un origami nella mano sono i segni distintivi che accompagnano ognuna delle piccole vittime annegate nell'acqua piovana dal sopracitato assassino. Ancora un bambino è scomparso e la corsa contro il tempo per salvare lui, ma anche chi gli è, volente o nolente, ineluttabilmente legato, è cominciata. Si comincia da Ethan Mars, architetto di successo e dalla vita felice che cade in depressione dopo aver perso in un incidente d'auto il figlio Jason ed aver vissuto una separazione della moglie. Come se questo non bastasse, il suo unico figlio rimasto - per quanto brutto da dire - Shaun, viene rapito dal killer degli origami. Ad affiancare i suoi disperati tentativi di ritrovarlo, ci sono poi il detective privato Scott Shelby, ingaggiato dalle famiglie delle vittime, e l'ambizioso agente dell'FBI Norman Jayden, determinato a scovare l'infanticida e ad arrestarlo. Completa il quadro la giornalista Madison Mad Paige, che incontra Ethan quasi per caso e decide di aiutarlo nella sua solitaria crociata. Il controllo dei protagonisti avviene in maniera ben palleggiata, anche se con ritmi narrativi abbastanza lenti, fortunatamente supportati da caricamenti brevi - ma a volte frequenti - che mettono in risalto il vantaggio di un porting del gioco su generazione corrente. La trama, poi, si snoda senza troppe incertezze, ma con piacere e senza regalare nessuna rivelazione gratuita al giocatore, che ha il compito di operare in maniera libera le proprie scelte e di avere letteralmente fra le mani la vita di ogni personaggio. Basta infatti una scelta infelice o un quick time event gestito male per alterare in maniera significativa il corso degli eventi, con il rischio di portare anche al decesso uno o più protagonisti e/o di far sì che alcuni di essi non scoprano mai l'identità del killer. Se la cosa ancora non rende bene l'idea, basti pensare che i possibili finali del gioco sono ben 17. La nuova veste grafica di Heavy Rain aiuta non poco a poter godere ancora oggi di questa pietra miliare del genere, con nuovi e implementati effetti di luce a farla da padrone, per svecchiare anche i modelli poligonali animati in maniera più antiquata - splendida l'acquosità negli occhi nei volti in primo piano durante i caricamenti dei capitoli.","Ezio","Heavy Rain"),
+("O4pNHEEY","IGN_Italia","2019-03-22","Se dovessi scegliere un elemento in particolare, tra quelli che hanno caratterizzato i videogiochi degli anni ’10, sicuramente punterei sull’avvento dei Souls e sulla conseguente diffusione dei soulslike. Demon’s Souls, i tre episodi di Dark Souls e Bloodborne, gruppo di giochi realizzati da From Software che si usa riunire amichevolmente sotto il nome di Soulsborne, hanno di fatto creato e aiutato a definire un nuovo genere, quello dei soulslike. E il fatto che negli ultimi dieci anni il nome di From Software e quello del suo attuale CEO, Hidetaka Miyazaki (il creatore dei tre giochi sopracitati), siano rimasti legati fondamentalmente solo a questi titoli, fa capire perfettamente come l’attesa per il loro nuovo lavoro, Sekiro: Shadows Die Twice, sia inevitabilmente caratterizzata dalla curiosità di capire se sarà o meno un nuovo Dark Souls. Se sarà o meno un soulslike, ed eventualmente in che misura.bbene, questa domanda ha due risposte, una breve e una molto meno. La breve: no, Sekiro non è un soulslike, perché mancano molti degli elementi da gioco di ruolo che caratterizzano il genere e ci sono anche tante altre differenze con i Soulsborne e altri giochi di questo filone (Lords of the Fallen, Nioh, The Surge e altri). La risposta più lunga, però, racconta di un gioco che, sì, è molto diverso dai precedenti prodotti targati From Software, ma che ne conserva comunque lo spirito generale e che per alcuni importanti aspetti può far sentire assolutamente a casa il giocatore di Dark Souls e Bloodborne. Il primo punto in comune con i Soulsborne, nonché una delle cose più importanti da dire su questo nuovo gioco a chi fosse interessato a comprarlo, è la difficoltà. Se i soulslike hanno riportato in auge, in questi anni, l’idea di un divertimento basato sulla difficoltà, facendo delle continue morti una caratteristica fondamentale, Sekiro è sicuramente d’accordo. Non solo. Il nuovo gioco di Miyazaki e soci è decisamente più difficile dei precedenti lavori della software house. Probabilmente proprio perché è qualcosa di molto diverso. La mia sensazione, a riguardo, è abbastanza chiara: non prendevo mazzate così corpose dai primi tentativi fatti con Demon’s Souls. Se il vostro primo soulslike è stato un altro, tipo Dark Souls o Bloodborne, pensate a quello e ricordatevi dei vostri primi momenti con il gioco. Avrete una piccola idea di come vi sentirete nelle vostre prime dieci ore di gioco con Sekiro. E anche nelle successive, comunque.","Fabio","Sekiro: Shadows Die Twice"),
+("X2QqDmgL","CoPlaNet","2019-01-25","Kingdom Hearts III ha due cuori. Il cuore della Disney sono i mondi che esploreremo in quella che potremmo definire la prima parte del gioco. I fan della serie dovrebbero essere preparati all'esperienza: ciascuno dei mondi Disney catapulta il terzetto di personaggi composto da Sora, Paperino e Pippo nelle vicissitudini dei suoi abitanti. In questo senso, Kingdom Hearts III rovescia parzialmente le aspettative, ripercorrendo la storia dei lungometraggi in alcuni casi e raccontando una trama completamente nuova in altri. Ovviamente Nomura ha riassunto le sceneggiature con un certosino lavoro di taglia e cuci, necessario a incastrare nella narrazione anche le sue creazioni, a cominciare dai protagonisti ma soprattutto gli antagonisti. Sotto questo punto di vista, il risultato non è esattamente stellare, e a un certo punto assume una dinamica non poco frustrante. Nei mondi Disney, infatti, la trama portante della saga fa in Kingdom Hearts 3 pochissimi passi avanti e le nemesi di Sora, i membri dell'Organizzazione XIII, servono quasi a fare un riassunto delle puntate precedenti, chiarendo alcuni punti oscuri molto specifici della complicata mitologia di Kingdom Hearts. Punti oscuri che, però, per un fan che conosce veramente bene la serie, non dovrebbero esserlo affatto. Diciamo quindi che queste scene servono più che altro a preparare il palcoscenico, rammentando ai giocatori con grande chiarezza alcuni dettagli che magari potrebbero essergli sfuggiti. Kingdom Hearts III è, tuttavia, soprattutto la storia di Xehanort e dell'incredibile partita a scacchi che ha condotto in tutti questi anni. Abbiamo avuto la netta impressione che i mondi Disney siano stati curati in maniera meno incisiva, sul fronte narrativo, e anche su quello del gameplay. È evidente che alcuni sono stati congegnati e sviluppati molto meglio di altri. Il mondo dei Caraibi, che aveva suscitato enormi perplessità al suo annuncio, si è rivelato uno dei più coinvolgenti e vari, soprattutto a livello contenutistico.  Anche i mondi di Frozen, Big Hero 6 e Rapunzel ci hanno colpito positivamente, mentre la Mostropoli di Monsters & Co. è senza dubbio l'anello debole della catena, un mondo troppo lineare e ripetitivo che fa da sequel al lungometraggio Pixar. Anche il mondo dedicato a Toy Story narra, senza grande entusiasmo, una storia inedita che si colloca idealmente tra Toy Story e Toy Story 2, ma che fortunatamente si incentra tutta sulle due figure iconiche che sono diventati, negli anni, Woody e Buzz Lightyear. Il fatto che alcuni mondi siano caratterizzati da feature specifiche - il veliero nel caso dei Caraibi, la componente free roaming a San Fransokyo e così via - rafforza l'idea che su alcuni si sia lavorato più che su altri, ma in generale questa parte del gioco garantisce una varietà notevole di situazioni, contenuti e attività.","Ezio","Kingdom Hearts III"),
+("8diVX5Vz","IGN_Italia","2017-03-02","Scrivere questa recensione mi piacerà moltissimo. Qualche settimana fa, all’interno della nostra rubrica della domenica, Dite la vostra, ho manifestato (non che ce ne fosse bisogno) la mia passione per la “chiacchiera sui videogiochi”, che per molti versi è pari a quella per i videogiochi stessi. Ebbene, ho proprio una voglia matta di parlare di Horizon: Zero Dawn, per tanti motivi. Perché è un gioco con degli aspetti meravigliosi che non vedo l’ora di descrivere, e anche dei punti critici che voglio troppo commentare con voi. Perché è il primo tentativo di Guerrilla, una software house finora specializzata in sparatutto in soggettiva, nel campo dei giochi open world, genere che mi sta abbastanza a cuore. E già solo questo è un sontuoso motivo di chiacchiera. Che questa sia la generazione in cui tutti si stanno cimentando con il fascino dei mondi aperti (vedi anche Metal Gear Solid V e Zelda: Breath of the Wild, come pure l’evoluzione di The Witcher 3 rispetto ai suoi predecessori, o anche gli slanci dei recenti Tomb Raider), è fuori discussione. E commentare questo tipo di tendenza è per me irrinunciabile. Da questo punto di vista, Horizon: Zero Dawn getta le basi per una chiacchiera potenzialmente infinita, perché, al di là di alcune indecisioni e ingenuità tipiche da “prima volta” (che analizzeremo nel dettaglio), i ragazzi di Guerilla sono riusciti, al primo colpo, a generare un nuovo standard audiovisivo per il genere. Ebbene sì. Horizon è, a mio modesto avviso, il gioco graficamente più bello di questa generazione, finora, considerando che si tratta di un open world. Ma anche uno dei più belli in assoluto. La cosa clamorosa, infatti, è che nel discorso sulla grafica i possibili confronti che vengono in mente non sono con altri giochi open world, ma con titoli più lineari, come Uncharted 4, The Order 1886, Ryse: Son of Rome. Tutti giochi che hanno stupito per la loro veste grafica, nel momento in cui sono usciti, ma per i quali valeva sempre la giustificazione/spiegazione “eh, ok, però non hanno un mondo aperto da reggere”. Bene. La grafica di Horizon si avvicina con estrema serenità a quella dei titoli sopracitati, ma all’interno di un open world ricco e completamente esplorabile. I più attenti lettori di IGN Italia ricorderanno forse una riflessione che proposi un po' di tempo fa, sul compromesso a cui deve scendere la grafica per venire incontro alle esigenze dell'open world. Ecco. Horizon sembra fregarsene assolutamente. Delle 66 e passa ore dedicate al gioco, molte le ho trascorse anche solo a guardarmi intorno, godendo di una resa visiva spesso incredibile, che è ovviamente il risultato di una serie di interessanti fattori. Innanzitutto, un motore grafico straordinario e usato con grande perizia. Dal punto di vista tecnico Guerrilla aveva già dimostrato abbondantemente di saperci fare, con i vari Killzone. Ma l’esordio con un genere totalmente nuovo, e molto più complesso da gestire, era comunque delicato, sotto quest’aspetto. Beh, è andata alla grandissima. E non solo per quanto riguarda la realizzazione tecnica. Anche artisticamente, infatti, il mondo di Horizon è molto bello e “disegnato” con grande gusto. Paesaggi e ambientazioni fanno inoltre da scenario a una protagonista modellata benissimo (meglio di tutti i comprimari, che però comunque sono di alto livello) e a delle macchine eccezionali.","Fabio","Horizon Zero Dawn"),
+("NpZLUBgL","CoPlaNet","2020-01-16","Non dovremmo stare qui a perdere tempo nel raccontarvi di cosa parli Dragon Ball, supponiamo – è una storia talmente famosa da rivaleggiare solo con l’origine dell’Uomo Ragno ed i racconti classici, probabilmente. Dragon Ball Z Kakarot si concentra ovviamente sulla serie animata Z, quella che ha fatto spopolare il franchise in tutto il mondo, ripercorrendo le ormai famose quattro saghe: i Sayan, Freezer, Cell e Majin Buu. E, prima di tutti i difetti che troverete strada facendo, la prima volta che Goku vola sulla Nuvola d’Oro, sorvolando gli scenari visti finora solo nei manga e nell’anime per la prima volta in tre dimensioni sarà un’esperienza unica per i fan. Svolazzare in sella alla Kinto per i primi minuti, perché smette di essere utile molto in fretta rispetto al volo, ci ha strappato un sorriso quasi ebete dalla faccia. Si nota subito dopo un mondo quasi completamente vuoto, con un colpo d’occhio solo superficialmente piacevole che svela in realtà texture, modelli poligonali degli animali e dell’ambientazione indietro di un paio di generazioni – ma arriva tutto in un secondo momento. Prima si deve sorvolare West City in cerca di Bulma per lavorare all’astronave per Namecc; fuggire tra le montagne del suddetto pianeta nella speranza di evitare l’esercito di Freezer; partire in picchiata dal Santuario di Dio per andare in soccorso degli altri Guerrieri Z contro gli Androidi; volare di corsa verso le distese desertiche per affrontare Vegeta per la prima volta; correre alla volta della Kame House per portare la medicina per il cuore a Goku. Rivivere questi semplici viaggi è già un potenziale valore aggiunto notevole di Dragon Ball Z Kakarot, per non parlare della possibilità di girovagare liberamente nel mondo disegnato da Akira Toriyama. Avere una mappa 3D esplorabile della Terra di Dragon Ball è praticamente come un piccolo parco giochi per adulti. Per non parlare dell’Enciclopedia Z che, per i fan più accaniti del franchise, contribuisce a creare il valore del proverbiale biglietto di Dragon Ball Z Kakarot. Una vera e propria fonte di conoscenze sull’universo di Akira Toriyama, che si arricchisce attraverso i collezionabili da trovare in giro per il mondo, e che riporta una descrizione dettagliatissima dei legami tra personaggi, una cronistoria accuratissima degli eventi, e tutto quello che vi possa venire in mente di voler sapere su Dragon Ball Z.","Ezio","Dragon Ball Z: Kakarot"),
+("ViuklQ0G","IGN_Italia","2018-04-20","Kratos era quel personaggio che rendeva particolari anche gesti estremamente comuni nei videogiochi. Come l’inserimento di uno scudo in una statua per risolvere un enigma. Mentre in, chessò, Resident Evil, un momento del genere passava normalmente, magari con un’anonima schermata esplicativa, in God of War era invece comunque un’occasione per sfogare tutta la rabbia di Kratos, che lo scudo lo sbatteva nella statua con violenza, con un’animazione apposita, segno di una grandissima cura per il personaggio e per la sua caratterizzazione. E quando un personaggio entra in modo così forte e chiaro nell’immaginario collettivo, non è facile presentarlo in modo diverso, perché c’è il rischio di deludere chi da quell’icona e dai suoi giochi si aspetta una serie di certezze. D’altra parte, però, non ha senso neanche rimanere aggrappati sempre alle stesse convinzioni e illudersi che a meccaniche uguali corrispondano in ogni caso le stesse identiche emozioni, anche col passare degli anni (e con l’evolversi dei videogiochi, sia in senso tecnico che in senso culturale). E così succede che il God of War che arriva su PS4 il prossimo 20 aprile, e che in questi giorni ho avuto modo di spolpare per bene, è qualcosa di diverso. Kratos è invecchiato e anche abbastanza cambiato, così come è differente lo scenario in cui agisce, non più basato sulla mitologia greca, ma su quella norrena. E così come sono diversi anche molti elementi del gameplay e della struttura di gioco. Sono tutte cose che è bene tenere in considerazione, quando ci si avvicina a questo nuovo God of War, a questo secondo inizio per Kratos. Saperlo prima, e arrivare quindi preparati all’approccio col gioco, servirà a due cose: non rimanere spiazzati dai tanti cambiamenti intercorsi rispetto alla “vecchia” serie e, soprattutto, capire che anche cambiando tanto, o forse proprio per questo coraggio, si può riuscire a confezionare un prodotto spettacolare, coinvolgente, esaltante, elegante e capace di imporsi come uno dei migliori giochi di questa generazione. Prima di iniziare ad addentrarci nell’analisi del gioco, ci tengo a darvi un consiglio molto importante. Cercate di informarvi il meno possibile su God of War, prima di iniziarlo e anche mentre lo starete giocando. Questa recensione, come già detto, è totalmente innocua da questo punto di vista, ma nel gioco ci sono sorprese di vario tipo che nei giorni scorsi tutti i recensori e altri addetti ai lavori hanno potuto scoprire. Quindi occhio a come vi muovete sul web in questo periodo. Vi consiglio di arrivare al gioco sapendone il meno possibile. Evitate anche di sbirciare la lista dei Trofei, quando ce l’avrete davanti. Ve lo dico subito: non ci sono Trofei mancabili, potete giocare serenamente come vi pare e piace, anche selezionando il livello di difficoltà che più vi aggrada. Si può continuare a esplorare il mondo di gioco anche dopo i titoli di coda e sarà quindi possibile platinare God of War senza dover saperne nulla in anticipo. Arrivate quindi prima alla fine del gioco, godendovelo al massimo, e poi, solo poi, iniziate a cercare in rete altre informazioni. E, davvero, non sbirciate la lista dei Trofei prima.","Fabio","God of War IV"),
+("u7G8QfPA","CoPlaNet","2019-05-14","Amicia de Rune non ha praticamente mai visto suo fratello minore, Hugo. Malato e segregato in casa, il piccolo è seguito dalla madre e tenuto a debita distanza dal mondo. Quando il mondo però, nella forma della Santa Inquisizione, sfonda la loro porta proprio per quel bambino, Amicia si trova ad attraversare una terra dilaniata dalla guerra e dalla peste, alla ricerca di un luogo di salvezza per sé e per il fratello. DDA Plague Tale: Innocence è un bellissimo esempio di opera videoludica, c'è poco da girarci intorno. Il lavoro della software house francese, Asobo Studio, segna un pregevole passo avanti per una realtà fino ad ora impegnata per lo più con titoli su licenza Disney. Basando il gameplay su tre elementi, A Plague Tale offre un ricco percorso narrativo e videoludico capace, fino alla fine, di non ripetersi se non nelle sue meccaniche più riuscite e stimolanti. I tre elementi sono: fionda, luce e ratti. Molti, moltissimi ratti, che si riversano per le strade in orde nere capaci di spolpare un uomo in pochi istanti. L'unico modo per non finire soffocati da quella moltitudine di denti e code è camminare nella luce, temuta dalle bestie, e spingere nelle tenebre i propri nemici. Questo mette in evidenza un'anima stealth, impreziosita dalla possibilità di sfruttare i diversi percorsi – se non addirittura crearne di nuovi. In tutto questo Amicia, o meglio la sua fionda, è il passe-partout assoluto. I suoi lacci possono lanciare semplici pietre o proiettili alchemici in grado di spegnere o accendere fuochi, attirare i ratti, avvelenare i nemici e molto altro. La combinazione dei diversi proiettili – che possono essere creati con l'uso di ingredienti sparsi per le aree di gioco – è ciò che rende A Plague Tale un'idea perfettamente riuscita anche nella pratica. Quella, e l'impegno degli sviluppatori nella creazione di diverse alternative, sempre accennate, mai evidenziate. Spesso gli esempi parlano meglio di ogni altra cosa. Di fronte da una guardia armata di elmo e lanterna, ci sono diverse soluzioni: sparare un colpo alla lanterna, così da lasciarla al buio in balia dei ratti. Colpirla con un proiettile urticante, costringendola a togliere l'elmo per finirla con una sassata nella tempia, o attirarla verso un punto illuminato per poi rompere la lanterna che ha tra le mani, costringendola a rimanere in quella posizione per non finire mangiata viva.  I tre elementi che aiutano Amicia e suo fratello a superare gli ostacoli sono anche gli stessi che li rallentano, chiedendo al giocatore di ragionare sulla posizione delle lanterne e dei fuochi per poter creare un percorso sicuro attraverso l'affamata orda nera. Ovviamente A Plague Tale arriva a dare il meglio di sé quando questi due aspetti lavorano in sinergia, offrendo momenti in cui l'ambiente può essere sfruttato per liberarsi dei nemici, purché in grado di porre la giusta attenzione nel non finire vittime delle proprie stesse mosse. Spegnere la lanterna di una guardia troppo vicina alla propria posizione significa vederla sbranata davanti ai nostri occhi da un ammasso di ratti che, una volta finito il lauto pasto, cercheranno nuova carne nelle immediate vicinanze. Allo stesso modo, evitare i ratti accendendo luci e fuochi è il modo migliore per farsi notare da un'intelligenza artificiale calibrata per risultare degnamente permissiva nelle fasi stealth e fastidiosamente credibile nei momenti in cui si viene scoperti.","Ezio","A Plague Tale: Innocence");
+
+
+insert into commento values
+("l9K6WDk9","192GZvGC",2,5,"A parte il voto che era abbastanza intuibile, e che a questo punto conta poco, è la recensione invece a lasciarmi stupefatto, a mettermi i brividi per tutto quello che riesce a trasmettere. Il gioco è proprio come speravo che fosse. NaughtyDog è un team che sembra venire da un altro pianeta. Sono avanti a tutti."),
+("fUAgawJ4","W98Ckx8A",6,2,"-1 to die, ci siamo quasi. Gioco immenso che sicuramente non tradirà le aspettative, sto per chiedere la residenza a Yharnam. Peccato per il frame rate non solidissimo, spero in una futura patch."),
+("AAAgawJ4","192GZvGC",3,15,"Giu il cappello per la recensione, meravigliosa. Siamo davanti a un titolo che rimarrà negli anni, ma si era capito da tempo. Non ricordo di altri giochi con voto quasi massimo, ma probabilmente perché non lo meritavano. Prevedo ci saranno parecchi a criticare il voto, il coraggio non manca mai."),
+("l9K6Ak9","W98Ckx8A",4,1,"letta la recensione parola per parola, bellissima scritta in modo magnifico ha praticamente spiegato in maniera impeccabile tutto l'universo FromSoftware e la visione di Myazaki, come dicevo io si differenzia notevolmente dalla serie souls e la difficolta' e' rimasta inalterata(anzi) solo qualche piccola imperfezione a livello tecnico non fa prendere il massimo che per tutto il resto avrebbe meritato."),
+("l9KASDDk9","fkFfBIlQ",2,2,"10 ore per una run? Pensavo di più, ma evidentemente hanno puntato sulla rigiocabilità per rendere il titolo più longevo. Sinora ho provato solo la demo e sono d'accordo con i limiti che ancora pone il movimento dei pg insieme alla telecamera, a volte risulta fastidioso. Comunque complimenti davvero, una recensione davvero ben scritta!"),
+("l9K6WDk9123","nFxjvZ94",3,1,"Tecnicamente ineccepibile e d'atmosfera (ho provato solo la Demo eh!;), a 'sto punto credo abbia anche una bella trama.Peccato non sia il mio genere"),
+("l12K6WDk9","O4pNHEEY",5,2,"Bellissimo, ma nn so quando troverò il tempo e le forze per affrontare un gioco del genere. In ogni caso sono contento che esista"),
+("l9K6WD612ASFv","fkFfBIlQ",6,3,"Una delle recensioni più belle e ispirate che abbia mai letto, complimenti.Io non vedo l'ora che mi arrivi il gioco...sono sicura che sarà un viaggio incredibile"),
+("cGjIasdEPBG","nFxjvZ94",7,4,"Sono davvero contentissimo per Heavy Rain. :) Mi ci sono buttato alla cieca (prenotato qualche giorno fa) anche avendo visto solo uno dei primi video usciti milioni di anni fa, poi non ho mai più guardato nulla. Dopo l'esperienza Fahrenheit non potevo non dare fiducia ai Quantic."),
+("cGjIGEPBHG","O4pNHEEY",4,5,"Recensione stupenda, c'è poco da dire...e da cosa ho letto ho il presentimento che il gioco negli anni a venire sarà ricordato come un'opera seminale e monumentale. Io l'ho messo poco fa in download, e non vedo l'ora di sbatterci il muso... Alla faccia di tutti quelli che non hanno la voglia (perchè di questo si tratta) di affrontare un'Opera del genere e di mettere alla prova le dita e la propria mente.Sono pronto"),
+("c12GjIEPaBG","X2QqDmgL",3,3,"E dopo Resident Evil 2 Remake arriva anche il turno di Kingdom Hearts 3..essere videogiocatori in questo periodo è bellissimo e adesso voglio godermi la recensione."),
+("cGjIE15PBG","8diVX5Vz",2,1,"È proprio il tipo di recensione che volevo leggere! Non avevo dubbi sulla qualità del gioco dei Guerrilla ,ma ora dopo aver letto la recensione non sto più nella pelle!"),
+("cG2jIEP63BG","NpZLUBgL",4,2,"Anche se la storia la conosco a memoria gli action RPG open world rimangono il mio genere preferito in assoluto e solo per questo lo giocherò al Day 1. Peccato solo che la storia non parta proprio dall'inizio con l'incontro tra Goku e Bulma per poi passare a tutte le avventure di Goku bambino."),
+("cGjIEaaaVPBG","X2QqDmgL",3,1,"Dopo tanto tempo si ritorna a un Kingdom Hearts main. Anche io ho intenzione di iniziarlo subito alla massima difficoltà, per vari motivi oltre a quello di avere una sfida più equilibrata."),
+("cGjADIFEPBG","8diVX5Vz",2,5,"Ottima recensione. Visto che a quanto leggo è un titolo impegnativo già a normale, ha una modalità facile per chi, come me, vuole godersi il titolo senza rischiare di rimanere bloccato?"),
+("cG6jI1EP3BG","NpZLUBgL",3,5,"Kakarot è un compendio del capolavoro di Toriyama, e contiene al suo interno tantissimi personaggi che appartengono sia a Z sia alla prima serie dell'anime, in un cocktail di riferimenti da capogiro, per i quali i fan rimarranno esterrefatti"),
+("cGj71I1EP5BG","ViuklQ0G",4,4,"Strano però come il gioco sia peggiorato in quello che è sempre stato il suo punto di forza, le boss fight spettacolari e immense questa cosa un po mi spiace, erano il marchio di fabbrica della serie ed è quello che tutti si aspettano da un god of war"),
+("cG1j1IE1PBG","u7G8QfPA",6,2,"Sembra davvero possedere tutte le caratteristiche per interessarmi e incuriosirmi. Lo prenderò di sicuro."),
+("YtMAAO3nfG","ViuklQ0G",3,3,"God of War è un titolo indimenticabile e a tratti persino sconvolgente, capace di scacciare ogni dubbio e convincere anche i più scettici conservatori. Il riassunto di un gioco epico!"),
+("YtMBBO3nfG","u7G8QfPA",1,1,"Davvero ma davvero interessante! Anche le meccaniche mi piacciono parecchio. Ottima recensione!"),
+("6JcfBWD8","u7G8QfPA",1,50,"Questo gioco è davvero una s*******a! Non compratelo!"),
+("6JcfaaasBWD8","ViuklQ0G",1,50,"Questo gioco è davvero un s****o! Non compratelo!"),
+("6sdJcfBaWD8","nFxjvZ94",1,50,"Questo gioco è davvero un a******o! Soldi sprecati!"),
+("6hJcgfBaWD8","8diVX5Vz",1,50,"Questo gioco è davvero una ********a! Orribile!");
+
+
+insert into interazioneAutore values
+("cGj71I1EP5BG","IGN_Italia",false,false), 
+("cGjIEaaaVPBG","IGN_Italia",false,false), 
+("cGjIGEPBHG","CoPlaNet",false,false), 
+("cG1j1IE1PBG","CoPlaNet",false,false);
+
+
+insert into interazioneUtente values
+("l9K6WDk9","Ellie_Williams",false,false), 
+("fUAgawJ4","Ellie_Williams",false,false),    
+("cG2jIEP63BG","Kratos1980",false,false),
+("cG6jI1EP3BG","Joel_Miller",false,false),     
+("YtMBBO3nfG","Kratos1980",false,false), 	  
+("l9K6WD612ASFv","Joel_Miller",false,false),   
+("AAAgawJ4","Shadow_1995",false,false),    
+("l9K6Ak9","Shadow_1995",false,false),	
+("l9KASDDk9","Hope",false,false),		
+("l9K6WDk9123","Hope",false,false),	
+("l12K6WDk9","Hinata99",false,false),		
+("cGjIasdEPBG","Hinata99",false,false),	
+("c12GjIEPaBG","MarieCurie",false,false),  
+("cGjIE15PBG","MarieCurie",false,false),    
+("cGjADIFEPBG","Salasar",false,false),	
+("YtMAAO3nfG","Salasar",false,false),	
+("6JcfBWD8","Thor",false,false),		
+("6JcfaaasBWD8","Thor",false,false),  
+("6sdJcfBaWD8","Van_Hoenheim",false,false),  
+("6hJcgfBaWD8","Van_Hoenheim",false,false);	
+
+
+insert into verifica values
+("6JcfBWD8","V-Admin"),
+("6JcfaaasBWD8","F-Admin"),
+("6sdJcfBaWD8","C-Admin"),
+("6hJcgfBaWD8","D-Admin");
+
+
+insert into visione values
+("IGN_Italia","The Last of Us Parte II"),
+("CoPlaNet","God of War IV");
+
+
+insert into valutazione values
+("Ellie_Williams","The Last of Us Parte II"),
+("Thor","God of War IV");
+
+
+insert into gestione values
+("D-Admin","The Last of Us Parte II"),
+("C-Admin","God of War IV");
+
+
+insert into supervisione values
+("V-Admin","192GZvGC"),
+("F-Admin","ViuklQ0G");
