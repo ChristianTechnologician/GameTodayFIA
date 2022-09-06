@@ -1,0 +1,15 @@
+GameAdviser 
+---------------------------------------------------
+Autori: Annunziata Valentina, Christian Capone
+---------------------------------------------------
+GameAdviser è un modulo di intelligenza artificiale sviluppato per la piattaforma di informazione videoludica GameToday.
+Lo scopo del modulo è quello di suggerire agli utenti una raccolta di videogiochi, con le valutazioni migliori, 
+sulla base della loro tipologia preferita (azione, avventura, …) espressa al momento della registrazione.
+
+All’interno del repository sono presenti:
+
+-Il codice di GameToday + il codice implementato di GameAdviser
+
+-Il database (Database)
+
+-La documentazione di GameAdviser (GameAdviser.pdf)
